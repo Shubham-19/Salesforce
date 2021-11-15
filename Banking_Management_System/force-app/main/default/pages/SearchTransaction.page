@@ -1,0 +1,34 @@
+<apex:page controller="TransactionEntriesForVfpage" >
+    <apex:pageMessages id="message"></apex:pageMessages>
+    <apex:form >
+    <apex:pageBlock title="Dynamic Soql">
+        <apex:pageMessages id="message"></apex:pageMessages>
+        <apex:pageBlockButtons location="top">
+            
+        <apex:commandButton value="Dynamic Query" action="{!dynamicSearch}" reRender="message" style="margin:5px"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection >
+               <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Enter amountFrom"/>
+                   <apex:inputText value="{!amountFrom}"/>
+               </apex:pageBlockSectionItem>
+            
+            
+               <apex:pageBlockSectionItem >
+                  <apex:outputLabel value="Enter amountUpto"/>
+                   <apex:inputText value="{!amountUpto}"/>
+               </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Result">
+        <apex:pageBlockTable value="{!opp}" var="fetch">
+            <apex:column value="{!fetch.Id}"/>
+    <apex:column value="{!fetch.name}"/>
+    <apex:column value="{!fetch.Amount__c}"/>
+    <apex:column value="{!fetch.Type__c}"/>
+    <apex:column value="{!fetch.Status__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>   
+    </apex:form>
+</apex:page>

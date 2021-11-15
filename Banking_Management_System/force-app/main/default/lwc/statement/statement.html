@@ -1,0 +1,66 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-quick-action-panel  title='Statement Quick Action'>
+        
+        <lightning-card title='Statement'>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="date" name="input1" label="Enter Start Date" onchange={handleChange_1}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-input type="date" name="input2" label="Enter End Date" onchange={handleChange_2}></lightning-input>
+                </div>
+            </div>
+            <br>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_4-of-12">
+                    <lightning-button variant="brand" label="Show Statement" title="Show Statement" onclick={handleClick}></lightning-button>
+                </div>
+            </div>
+            <br>
+            
+            <template if:true={showTable}>
+                <lightning-input type="search" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"
+                value={searchKey}></lightning-input>
+                <lightning-datatable key-field="Id" data={dataToBeDisplayed} columns={columns} sorted-by={sortedBy}
+                    sorted-direction={sortedDirection} onsort={handleSortAccountData} id="table">
+                </lightning-datatable>
+                <br>
+                <lightning-layout horizontal-align="space">
+                    <lightning-layout-item flexibility="auto">
+                        <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                        </lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto">
+                        Page {page} of {totalPage}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="auto">
+                        <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                            onclick={nextHandler}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <br>
+                <!-- <div>
+                    <lightning-button variant="brand" label="CSV" title="CSV" onclick={downloadCSV}></lightning-button>
+                    <br>
+                    <lightning-button variant="brand" label="PDF" title="PDF" onclick={generatePDF}></lightning-button>
+                    <br>
+                    <lightning-button variant="brand" label="Email PDF" title="Email the PDF file" onclick={emailPDF}></lightning-button>
+                </div> -->
+               <lightning-radio-group name="radioGroup"
+                          label="You can view the data in the below forms:"
+                          options={options}
+                          value={value}
+                          onchange={handleRadioChange}
+                          type="radio"></lightning-radio-group>
+                <br>
+                <template if:true={downloadPDF}>
+                    <lightning-button variant="brand" label="Download Report" title="Download" onclick={downloadOrSendEmail}></lightning-button>
+                </template>
+                <template if:true={sendEmail}>
+                    <lightning-button variant="brand" label="Send Email with PDF" title="Send PDF as an Email Attachment" onclick={downloadOrSendEmail}></lightning-button>
+                </template>
+            </template>
+        </lightning-card>
+    </lightning-quick-action-panel>
+</template>
